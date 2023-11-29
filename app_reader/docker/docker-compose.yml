@@ -1,0 +1,25 @@
+# Use postgres/example user/password credentials
+version: '3'
+
+services:
+  cqrs_read_db:
+    container_name: cqrs_read_db
+    image: mongo
+    restart: always
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - cqrs_reader_volume:/data/db
+    networks: 
+      - cqrs
+
+volumes:
+  cqrs_reader_volume:
+    external: true
+  
+networks:
+  cqrs:
+    external: true
